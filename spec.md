@@ -74,33 +74,6 @@ text-to-speech-cli input.md --config ./config.json
 - リストアイテムのテキスト部分
 - 引用文のテキスト部分
 
-## ファイル構造
-
-```
-text-to-speech-cli/
-├── src/
-│   ├── cli.js              # CLIエントリーポイント
-│   ├── parser/
-│   │   └── markdown.js     # Markdown解析
-│   ├── providers/
-│   │   ├── base.js         # プロバイダーベースクラス
-│   │   ├── elevenlabs.js   # ElevenLabs実装
-│   │   └── index.js        # プロバイダー管理
-│   ├── config/
-│   │   └── manager.js      # 設定管理
-│   └── utils/
-│       ├── file.js         # ファイル操作
-│       └── audio.js        # 音声処理
-├── bin/
-│   └── text-to-speech-cli  # 実行ファイル
-├── config/
-│   └── default.json        # デフォルト設定
-├── tests/
-├── docs/
-├── package.json
-└── README.md
-```
-
 ## 技術仕様
 
 ### 依存パッケージ

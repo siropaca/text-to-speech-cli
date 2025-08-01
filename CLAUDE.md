@@ -5,33 +5,6 @@
 
 ## アーキテクチャ
 
-### ディレクトリ構造
-```
-text-to-speech-cli/
-├── src/
-│   ├── cli.js              # CLI エントリーポイント
-│   ├── parser/
-│   │   └── markdown.js     # Markdown 解析
-│   ├── providers/
-│   │   ├── base.js         # プロバイダーベースクラス
-│   │   ├── elevenlabs.js   # ElevenLabs 実装
-│   │   └── index.js        # プロバイダー管理
-│   ├── config/
-│   │   └── manager.js      # 設定管理
-│   └── utils/
-│       ├── file.js         # ファイル操作
-│       └── audio.js        # 音声処理
-├── bin/
-│   └── text-to-speech-cli  # 実行ファイル
-├── config/
-│   └── default.json        # デフォルト設定
-├── tests/
-├── docs/
-├── mise.toml              # 開発環境バージョン管理
-├── package.json
-└── README.md
-```
-
 ## 技術スタック
 - **Node.js**: 20.18.1 (mise 管理)
 - **パッケージマネージャー**: pnpm 9.15.2 (mise 管理)
