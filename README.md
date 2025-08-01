@@ -174,9 +174,9 @@ ISC License
 
 ## 環境変数
 
-| 変数名 | 説明 | 必須 |
-| ------ | ---- | ---- |
-| `ELEVENLABS_API_KEY` | ElevenLabs API キー | ✓ |
+| 変数名               | 説明                | 必須 |
+| -------------------- | ------------------- | ---- |
+| `ELEVENLABS_API_KEY` | ElevenLabs API キー | ✓    |
 
 ## トラブルシューティング
 

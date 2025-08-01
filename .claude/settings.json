@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd $CLAUDE_PROJECT_DIR && pnpm run format && pnpm test"
+            "command": "cd $CLAUDE_PROJECT_DIR && pnpm run format && pnpm run lint:fix"
           }
         ]
       }

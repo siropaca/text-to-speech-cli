@@ -172,9 +172,11 @@ pnpm run ncu          # 依存関係の更新チェック
 ### 音声プロバイダー実装
 
 現在実装済み：
+
 - ✅ ElevenLabs (実装済み)
 
 将来的に実装予定のプロバイダー：
+
 - Google Text-to-Speech
 - Amazon Polly
 - Azure Speech Services

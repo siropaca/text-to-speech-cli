@@ -24,7 +24,7 @@ program
       if (!apiKey) {
         console.error(
           '❌ エラー: ELEVENLABS_API_KEY 環境変数が設定されていません。\n' +
-          '   .env ファイルを作成するか、環境変数を設定してください。'
+            '   .env ファイルを作成するか、環境変数を設定してください。'
         );
         process.exit(1);
       }
