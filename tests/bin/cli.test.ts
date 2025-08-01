@@ -32,9 +32,10 @@ describe('CLI Integration Tests', () => {
           cwd: tempDir,
         }
       );
-    } catch (error: any) {
+    } catch (error) {
+      const e = error as { message: string; stdout?: string; stderr?: string };
       throw new Error(
-        `CLI failed: ${error.message}\nOutput: ${error.stdout || ''}\nError: ${error.stderr || ''}`
+        `CLI failed: ${e.message}\nOutput: ${e.stdout || ''}\nError: ${e.stderr || ''}`
       );
     }
   };

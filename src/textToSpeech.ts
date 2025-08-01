@@ -8,14 +8,14 @@ export interface TextToSpeechOptions {
   apiKey: string;
   voiceId?: string;
   modelId?: string;
-  outputFormat?: string;
+  outputFormat?: 'mp3';
 }
 
 export class TextToSpeech {
   private client: ElevenLabsClient;
   private voiceId: string;
   private modelId: string;
-  private outputFormat: any;
+  private outputFormat: 'mp3_44100_128';
 
   constructor(options: TextToSpeechOptions) {
     this.client = new ElevenLabsClient({
@@ -23,7 +23,7 @@ export class TextToSpeech {
     });
     this.voiceId = options.voiceId || 'JBFqnCBsd6RMkjVDRZzb';
     this.modelId = options.modelId || 'eleven_multilingual_v2';
-    this.outputFormat = options.outputFormat || 'mp3_44100_128';
+    this.outputFormat = 'mp3_44100_128';
   }
 
   async convertTextToSpeech(text: string, outputPath: string): Promise<void> {
@@ -35,7 +35,7 @@ export class TextToSpeech {
       });
 
       const writeStream = createWriteStream(outputPath);
-      await pipeline(audioStream as any, writeStream);
+      await pipeline(audioStream, writeStream);
     } catch (error) {
       throw new Error(
         `Failed to convert text to speech: ${error instanceof Error ? error.message : String(error)}`
