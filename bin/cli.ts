@@ -4,7 +4,11 @@ import { config } from 'dotenv';
 import { program } from 'commander';
 import { resolve } from 'path';
 import process from 'process';
-import { TextToSpeech } from '../src/textToSpeech.js';
+import {
+  convertFileToSpeech,
+  generateOutputPath,
+} from '../src/textToSpeech.js';
+import type { ElevenLabsOptions } from '../src/types/tts.js';
 
 // .env ファイルを読み込む
 config();
@@ -14,7 +18,10 @@ program
   .description('テキストファイルを音声ファイルに変換するツール')
   .version('1.0.0')
   .argument('<file>', 'テキストファイルのパス')
-  .action(async (file: string) => {
+  .option('-p, --provider <provider>', 'TTS プロバイダー', 'elevenlabs')
+  .option('-v, --voice-id <voiceId>', '音声 ID')
+  .option('-m, --model-id <modelId>', 'モデル ID')
+  .action(async (file: string, options) => {
     try {
       const filePath = resolve(process.cwd(), file);
 
@@ -29,16 +36,21 @@ program
         process.exit(1);
       }
 
-      // TextToSpeech インスタンスを作成
-      const tts = new TextToSpeech({ apiKey });
-
       // 出力ファイルパスを生成
-      const outputPath = TextToSpeech.generateOutputPath(filePath);
+      const outputPath = generateOutputPath(filePath);
 
       console.log(`変換中: ${filePath} → ${outputPath}`);
 
+      // TTS オプションを作成
+      const ttsOptions: ElevenLabsOptions = {
+        provider: 'elevenlabs',
+        apiKey,
+        voiceId: options.voiceId,
+        modelId: options.modelId,
+      };
+
       // 音声ファイルに変換
-      await tts.convertFileToSpeech(filePath, outputPath);
+      await convertFileToSpeech(filePath, outputPath, ttsOptions);
 
       console.log(`✨ 音声ファイルが作成されました: ${outputPath}`);
     } catch (error) {

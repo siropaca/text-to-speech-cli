@@ -33,4 +33,5 @@ export default {
   testEnvironmentOptions: {
     experimentalVmModules: true,
   },
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
 };

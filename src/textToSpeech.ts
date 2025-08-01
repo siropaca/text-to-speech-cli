@@ -1,66 +1,56 @@
-import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
-import { createWriteStream } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import { pipeline } from 'node:stream/promises';
-import { dirname, join } from 'node:path';
+import type { TTSProvider, TTSOptions } from './types/tts.js';
+import { createElevenLabsProvider } from './providers/elevenlabs.js';
 
-export interface TextToSpeechOptions {
+// プロバイダーを作成するファクトリー関数
+export const createTextToSpeechProvider = (
+  options: TTSOptions
+): TTSProvider => {
+  switch (options.provider) {
+    case 'elevenlabs':
+      return createElevenLabsProvider(options);
+    case 'google':
+      // 将来的に Google TTS プロバイダーを実装
+      throw new Error('Google TTS provider is not implemented yet');
+    case 'amazon':
+      // 将来的に Amazon Polly プロバイダーを実装
+      throw new Error('Amazon Polly provider is not implemented yet');
+    case 'azure':
+      // 将来的に Azure Speech プロバイダーを実装
+      throw new Error('Azure Speech provider is not implemented yet');
+    default:
+      // @ts-expect-error - unreachable code
+      throw new Error(`Unknown provider: ${options.provider}`);
+  }
+};
+
+// テキストを音声に変換する関数
+export const convertTextToSpeech = async (
+  text: string,
+  outputPath: string,
+  options: TTSOptions
+): Promise<void> => {
+  const provider = createTextToSpeechProvider(options);
+  await provider.convertTextToSpeech(text, outputPath);
+};
+
+// ファイルを音声に変換する関数
+export const convertFileToSpeech = async (
+  inputFilePath: string,
+  outputFilePath: string,
+  options: TTSOptions
+): Promise<void> => {
+  const text = await readFile(inputFilePath, 'utf-8');
+  await convertTextToSpeech(text, outputFilePath, options);
+};
+
+// 後方互換性のためのエクスポート（非推奨）
+export { generateOutputPath } from './utils/file.js';
+
+// 後方互換性のための型エイリアス（ElevenLabs 固有のオプション）
+export type TextToSpeechOptions = {
   apiKey: string;
   voiceId?: string;
   modelId?: string;
   outputFormat?: 'mp3';
-}
-
-export class TextToSpeech {
-  private client: ElevenLabsClient;
-  private voiceId: string;
-  private modelId: string;
-  private outputFormat: 'mp3_44100_128';
-
-  constructor(options: TextToSpeechOptions) {
-    this.client = new ElevenLabsClient({
-      apiKey: options.apiKey,
-    });
-    this.voiceId = options.voiceId || 'JBFqnCBsd6RMkjVDRZzb';
-    this.modelId = options.modelId || 'eleven_multilingual_v2';
-    this.outputFormat = 'mp3_44100_128';
-  }
-
-  async convertTextToSpeech(text: string, outputPath: string): Promise<void> {
-    try {
-      const audioStream = await this.client.textToSpeech.convert(this.voiceId, {
-        text,
-        modelId: this.modelId,
-        outputFormat: this.outputFormat,
-      });
-
-      const writeStream = createWriteStream(outputPath);
-      await pipeline(audioStream, writeStream);
-    } catch (error) {
-      throw new Error(
-        `Failed to convert text to speech: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  async convertFileToSpeech(
-    inputFilePath: string,
-    outputFilePath: string
-  ): Promise<void> {
-    const text = await readFile(inputFilePath, 'utf-8');
-
-    await this.convertTextToSpeech(text, outputFilePath);
-  }
-
-  static generateOutputPath(
-    inputFilePath: string,
-    extension: string = 'mp3'
-  ): string {
-    const dir = dirname(inputFilePath);
-    const baseName = inputFilePath.substring(
-      inputFilePath.lastIndexOf('/') + 1,
-      inputFilePath.lastIndexOf('.')
-    );
-    return join(dir, `${baseName}.${extension}`);
-  }
-}
+};
