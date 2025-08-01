@@ -4,11 +4,11 @@ import { pipeline } from 'node:stream/promises';
 import type {
   TTSProvider,
   ElevenLabsOptions,
-  ElevenLabsModelId,
+  // ElevenLabsModelId,
 } from '../types/index.js';
 import {
   DEFAULT_VOICE_ID,
-  DEFAULT_MODEL_ID,
+  // DEFAULT_MODEL_ID,
   DEFAULT_OUTPUT_FORMAT,
 } from '../constants/elevenlabs.js';
 
@@ -26,7 +26,7 @@ export const createElevenLabsProvider = (
 
   // デフォルト値
   const voiceId = options.voiceId || DEFAULT_VOICE_ID;
-  const modelId: ElevenLabsModelId = DEFAULT_MODEL_ID;
+  // const modelId: ElevenLabsModelId = DEFAULT_MODEL_ID;
   const outputFormat = DEFAULT_OUTPUT_FORMAT;
 
   return {
@@ -34,7 +34,7 @@ export const createElevenLabsProvider = (
       try {
         const audioStream = await client.textToSpeech.convert(voiceId, {
           text,
-          modelId,
+          // modelId,
           outputFormat,
         });
 

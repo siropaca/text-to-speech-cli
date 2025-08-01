@@ -22,7 +22,7 @@ export const ELEVENLABS_MODEL_IDS: ReadonlyArray<ElevenLabsModelId> = [
 /**
  * デフォルト音声 ID
  */
-export const DEFAULT_VOICE_ID = 'JBFqnCBsd6RMkjVDRZzb' as const;
+export const DEFAULT_VOICE_ID = '4lOQ7A2l7HPuG7UIHiKA' as const;
 
 /**
  * デフォルトモデル ID

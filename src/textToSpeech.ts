@@ -52,6 +52,7 @@ export const convertFileToSpeech = async (
   options: TTSOptions
 ): Promise<void> => {
   const text = await readFile(inputFilePath, 'utf-8');
+  // マークダウンファイルの不要な記法を削除して、音声読み上げ用に整形
   await convertTextToSpeech(text, outputFilePath, options);
 };
 
