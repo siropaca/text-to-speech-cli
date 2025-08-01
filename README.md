@@ -7,8 +7,10 @@
 - 🎙️ テキストファイルを音声ファイル（MP3）に変換
 - 🌐 ElevenLabs API を使用した高品質な音声生成
 - 🌍 多言語対応（ElevenLabs Multilingual モデル使用）
-- ⚙️ TypeScript で実装された CLI ツール
-- 🎯 シンプルで直感的な CLI インターフェース
+- 🔧 複数の TTS プロバイダーに対応可能なアーキテクチャ
+- 🎯 音声 ID とモデル ID のカスタマイズ可能
+- ⚙️ TypeScript で実装された型安全な CLI ツール
+- 📝 拡張可能な設計（新しいプロバイダーの追加が容易）
 
 ## インストール
 
@@ -58,16 +60,25 @@ text-to-speech-cli input.txt
 text-to-speech-cli README.md
 # → README.mp3 が生成されます
 
+# 特定の音声IDを使用して変換
+text-to-speech-cli input.txt -v "21m00Tcm4TlvDq8ikWAM"
+
+# 特定のモデルIDを使用して変換
+text-to-speech-cli input.txt -m "eleven_monolingual_v1"
+
 # 開発モードでの実行
 pnpm run dev sample/test.md
 ```
 
 ### コマンドオプション
 
-| オプション  | 短縮形 | 説明           |
-| ----------- | ------ | -------------- |
-| `--help`    | `-h`   | ヘルプ表示     |
-| `--version` | `-V`   | バージョン表示 |
+| オプション   | 短縮形 | 説明                                   | デフォルト値             |
+| ------------ | ------ | -------------------------------------- | ------------------------ |
+| `--provider` | `-p`   | TTS プロバイダー                       | `elevenlabs`             |
+| `--voice-id` | `-v`   | 音声 ID（ElevenLabs の音声を指定）     | `JBFqnCBsd6RMkjVDRZzb`   |
+| `--model-id` | `-m`   | モデル ID（ElevenLabs のモデルを指定） | `eleven_multilingual_v2` |
+| `--help`     | `-h`   | ヘルプ表示                             | -                        |
+| `--version`  | `-V`   | バージョン表示                         | -                        |
 
 ## 必要条件
 
@@ -115,6 +126,9 @@ pnpm test
 pnpm test:watch      # ウォッチモード
 pnpm test:coverage   # カバレッジレポート付き
 
+# サンプルテスト実行
+pnpm run sample-test
+
 # 依存関係の更新チェック
 pnpm run ncu
 ```
@@ -124,25 +138,30 @@ pnpm run ncu
 ```
 text-to-speech-cli/
 ├── bin/              # CLI エントリーポイント
-│   └── cli.ts        # メインの CLI スクリプト
+│   ├── cli.ts        # メインの CLI スクリプト
+│   └── cli.test.ts   # CLI テスト
 ├── dist/             # ビルド成果物（gitignore）
 ├── src/              # ソースコード
-│   ├── index.ts      # メインエントリーポイント
-│   ├── fileReader.ts # ファイル読み込みロジック
+│   ├── providers/    # TTS プロバイダー実装
+│   │   └── elevenlabs.ts # ElevenLabs プロバイダー
+│   ├── types/        # TypeScript 型定義
+│   │   └── tts.ts    # TTS 関連の型定義
+│   ├── utils/        # ユーティリティ関数
+│   │   ├── file.ts   # ファイル操作ユーティリティ
+│   │   └── file.test.ts # ファイルユーティリティのテスト
 │   └── textToSpeech.ts # 音声変換ロジック
-├── tests/            # テストファイル
-│   ├── bin/
-│   │   └── cli.test.ts
-│   └── src/
-│       └── fileReader.test.ts
+├── docs/             # ドキュメント
+│   └── elevenlabs.md # ElevenLabs API ドキュメント
 ├── sample/           # サンプルファイル
 │   ├── test.md       # テスト用 Markdown ファイル
 │   └── test.mp3      # 生成されたサンプル音声
 ├── .env.example      # 環境変数のサンプル
 ├── tsconfig.json     # TypeScript 設定
 ├── jest.config.js    # Jest 設定
+├── jest-setup.ts     # Jest セットアップ
 ├── eslint.config.ts  # ESLint 設定
 ├── package.json      # プロジェクト設定
+├── CLAUDE.md         # AI 開発ガイドライン
 ├── lefthook.yml      # Git フック設定
 ├── commitlint.config.ts # コミットメッセージ規約
 └── mise.toml         # 開発環境バージョン管理

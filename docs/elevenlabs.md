@@ -7,9 +7,9 @@
 
 ## デフォルト設定
 
-- **Voice ID**: `JBFqnCBsd6RMkjVDRZzb` (George)
-- **Model**: `eleven_multilingual_v2`
-- **Output Format**: `mp3_44100_128`
+- デフォルト音声ID: `JBFqnCBsd6RMkjVDRZzb` (George)
+- デフォルトモデルID: `eleven_multilingual_v2`
+- 出力フォーマット: `mp3_44100_128`
 
 ## 制限事項
 

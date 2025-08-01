@@ -17,23 +17,56 @@ text-to-speech-cli/
 │   ├── cli.ts          # CLI エントリーポイント
 │   └── cli.test.ts     # CLI テスト（同階層）
 ├── src/
-│   ├── textToSpeech.ts # 音声変換ロジック（ElevenLabs API）
-│   └── textToSpeech.test.ts # textToSpeech テスト（同階層）
+│   ├── providers/      # TTS プロバイダー実装
+│   │   └── elevenlabs.ts # ElevenLabs プロバイダー
+│   ├── types/          # TypeScript 型定義
+│   │   └── tts.ts      # TTS 関連の型定義
+│   ├── utils/          # ユーティリティ関数
+│   │   ├── file.ts     # ファイル操作ユーティリティ
+│   │   └── file.test.ts # ファイルユーティリティのテスト
+│   └── textToSpeech.ts # 音声変換ロジック
+├── docs/               # ドキュメント
+│   └── elevenlabs.md   # ElevenLabs API ドキュメント
 ├── dist/               # ビルド成果物
 ├── coverage/           # テストカバレッジレポート
 ├── sample/
 │   ├── test.md         # テスト用 Markdown
 │   └── test.mp3        # 生成されたサンプル音声
 ├── .env.example        # 環境変数サンプル
+├── tsconfig.json       # TypeScript 設定
 ├── jest.config.js      # Jest 設定
+├── jest-setup.ts       # Jest セットアップ
 ├── eslint.config.ts    # ESLint 設定
 ├── lefthook.yml        # Git フック設定
-└── commitlint.config.ts # コミットメッセージ規約
+├── commitlint.config.ts # コミットメッセージ規約
+└── mise.toml           # 開発環境バージョン管理
 ```
 
 ## 技術スタック
 
-- @./package.json を参照
+### ランタイム・言語
+
+- **言語**: TypeScript 5.9.2
+- **ランタイム**: Node.js ≥ 20.18.1
+- **パッケージマネージャー**: pnpm 9.15.2
+- **モジュールシステム**: ESM (ECMAScript Modules)
+
+### 主要依存パッケージ
+
+- `@elevenlabs/elevenlabs-js` (2.7.0): ElevenLabs API クライアント
+- `commander` (12.0.0): CLI 引数解析
+- `dotenv` (16.4.7): 環境変数管理
+- `fs-extra` (11.2.0): ファイル操作拡張
+
+### 開発ツール
+
+- `tsx` (4.20.3): TypeScript 実行環境
+- `eslint` (9.32.0): リンター
+- `prettier` (3.4.0): コードフォーマッター
+- `jest` (30.0.5): テストフレームワーク
+- `ts-jest` (29.4.0): Jest の TypeScript サポート
+- `@commitlint/cli` (19.8.1): コミットメッセージ規約
+- `lefthook` (1.11.13): Git フック管理
 
 ## 開発ガイドライン
 
@@ -71,37 +104,58 @@ text-to-speech-cli/
 ### 開発
 
 ```bash
-pnpm run dev <file>   # tsx を使用して開発モードで実行
+pnpm run dev <file>       # tsx を使用して開発モードで実行
 ```
 
 ### ビルド
 
 ```bash
-pnpm run build        # TypeScript をビルド
-pnpm run clean        # ビルド成果物を削除
+pnpm run build            # TypeScript をビルド
+pnpm run clean            # ビルド成果物を削除
 ```
 
 ### 品質管理
 
 ```bash
-pnpm run lint         # ESLint でコードチェック
-pnpm run lint:fix     # ESLint で自動修正
-pnpm run format       # Prettier でコードフォーマット
-pnpm run format:package # package.json をソート
-pnpm run typecheck    # TypeScript の型チェック
+pnpm run lint             # ESLint でコードチェック
+pnpm run lint:fix         # ESLint で自動修正
+pnpm run format           # Prettier でコードフォーマット
+pnpm run format:package   # package.json をソート
+pnpm run typecheck        # TypeScript の型チェック
 ```
 
 ### テスト
 
 ```bash
-pnpm test             # テスト実行
-pnpm test:watch       # ウォッチモードでテスト実行
-pnpm test:coverage    # カバレッジレポート付きでテスト実行
+pnpm test                 # テスト実行
+pnpm test:watch           # ウォッチモードでテスト実行
+pnpm test:coverage        # カバレッジレポート付きでテスト実行
+```
+
+### その他のスクリプト
+
+```bash
+pnpm run sample-test      # サンプルファイルでテスト実行
+pnpm run ncu              # 依存関係の更新チェック
 ```
 
 ## API 情報
 
-- ElevenLabs API: @./docs/elevenlabs-api.md を参照
+### ElevenLabs API
+
+- ドキュメント: @./docs/elevenlabs.md を参照（ここには詳細を描かない）
+
+### プロバイダーアーキテクチャ
+
+現在実装済み:
+
+- `elevenlabs`: ElevenLabs API を使用した音声生成
+
+将来的に実装予定:
+
+- `google`: Google Text-to-Speech
+- `amazon`: Amazon Polly
+- `azure`: Azure Speech Services
 
 ## テスト駆動開発（TDD）
 
