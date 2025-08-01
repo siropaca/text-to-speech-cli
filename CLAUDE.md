@@ -99,7 +99,7 @@ pnpm test:coverage    # カバレッジレポート付きでテスト実行
 
 ## API 情報
 
-- ElevenLabs API: @./elevenlabs-api.md を参照
+- ElevenLabs API: @./docs/elevenlabs-api.md を参照
 
 ## テスト駆動開発（TDD）
 
