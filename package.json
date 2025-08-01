@@ -19,6 +19,9 @@
     "format:package": "sort-package-json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
+    "test:watch": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --watch",
+    "test:coverage": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --coverage",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -30,13 +33,18 @@
     "@commitlint/config-conventional": "19.8.1",
     "@commitlint/types": "19.8.1",
     "@eslint/js": "9.32.0",
+    "@jest/globals": "30.0.5",
     "@types/eslint": "9.6.1",
+    "@types/jest": "30.0.0",
     "@types/node": "24.1.0",
     "eslint": "9.32.0",
+    "jest": "30.0.5",
     "jiti": "2.5.1",
     "lefthook": "1.11.13",
     "prettier": "3.4.0",
     "sort-package-json": "3.2.1",
+    "ts-jest": "29.4.0",
+    "ts-node": "10.9.2",
     "tsx": "4.20.3",
     "typescript": "5.9.2",
     "typescript-eslint": "8.22.0"
