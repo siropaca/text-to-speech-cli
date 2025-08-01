@@ -24,7 +24,7 @@ const config: ConfigArray = tseslint.config(
       'no-console': 'off',
       'no-debugger': 'error',
     },
-  },
+  }
 );
 
 export default config;
