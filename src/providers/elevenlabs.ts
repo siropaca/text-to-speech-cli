@@ -1,7 +1,11 @@
 import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
 import { createWriteStream } from 'node:fs';
 import { pipeline } from 'node:stream/promises';
-import type { TTSProvider, ElevenLabsOptions } from '../types/tts.js';
+import type {
+  TTSProvider,
+  ElevenLabsOptions,
+  ElevenLabsModelId,
+} from '../types/tts.js';
 
 // ElevenLabs プロバイダーの実装
 export const createElevenLabsProvider = (
@@ -13,7 +17,7 @@ export const createElevenLabsProvider = (
 
   // デフォルト値
   const voiceId = options.voiceId || 'JBFqnCBsd6RMkjVDRZzb';
-  const modelId = options.modelId || 'eleven_ttv_v3';
+  const modelId: ElevenLabsModelId = options.modelId || 'eleven_ttv_v3';
   const outputFormat = 'mp3_44100_128' as const;
 
   return {

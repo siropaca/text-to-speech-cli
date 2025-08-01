@@ -72,13 +72,12 @@ pnpm run dev sample/test.md
 
 ### コマンドオプション
 
-| オプション   | 短縮形 | 説明                                   | デフォルト値             |
-| ------------ | ------ | -------------------------------------- | ------------------------ |
-| `--provider` | `-p`   | TTS プロバイダー                       | `elevenlabs`             |
-| `--voice-id` | `-v`   | 音声 ID（ElevenLabs の音声を指定）     | `JBFqnCBsd6RMkjVDRZzb`   |
-| `--model-id` | `-m`   | モデル ID（ElevenLabs のモデルを指定） | `eleven_ttv_v3` |
-| `--help`     | `-h`   | ヘルプ表示                             | -                        |
-| `--version`  | `-V`   | バージョン表示                         | -                        |
+| オプション   | 短縮形 | 説明                                   | デフォルト値           |
+| ------------ | ------ | -------------------------------------- | ---------------------- |
+| `--voice-id` | `-v`   | 音声 ID（ElevenLabs の音声を指定）     | `JBFqnCBsd6RMkjVDRZzb` |
+| `--model-id` | `-m`   | モデル ID（ElevenLabs のモデルを指定） | `eleven_ttv_v3`        |
+| `--help`     | `-h`   | ヘルプ表示                             | -                      |
+| `--version`  | `-V`   | バージョン表示                         | -                      |
 
 ## 必要条件
 

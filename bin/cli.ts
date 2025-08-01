@@ -19,9 +19,9 @@ program
   .version('1.0.0')
   .argument('<file>', 'テキストファイルのパス')
   .option('-v, --voice-id <voiceId>', '音声 ID')
+  .option('-m, --model-id <modelId>', 'モデル ID')
   // 未対応
   // .option('-p, --provider <provider>', 'TTS プロバイダー', 'elevenlabs')
-  // .option('-m, --model-id <modelId>', 'モデル ID')
   .action(async (file: string, options) => {
     try {
       const filePath = resolve(process.cwd(), file);
