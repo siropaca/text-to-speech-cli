@@ -10,9 +10,7 @@
             "command": "afplay /System/Library/Sounds/Funk.aiff"
           }
         ]
-      }
-    ],
-    "PostToolUse": [
+      },
       {
         "matcher": "Write|Edit|MultiEdit",
         "hooks": [
