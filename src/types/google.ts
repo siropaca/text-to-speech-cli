@@ -1,7 +1,7 @@
 import type { BaseTTSOptions } from './common.js';
 
 /**
- * (未実装) Google オプション
+ * (未実装) Google TTS オプション
  */
 export interface GoogleTTSOptions extends BaseTTSOptions {
   provider: 'google';
