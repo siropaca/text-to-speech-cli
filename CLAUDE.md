@@ -11,16 +11,14 @@ ElevenLabs API などを使用して音声を生成します。
 
 ```
 text-to-speech-cli/
-├── bin/cli.ts          # CLI エントリーポイント
+├── bin/
+│   ├── cli.ts          # CLI エントリーポイント
+│   └── cli.test.ts     # CLI テスト（同階層）
 ├── src/
 │   ├── index.ts        # メインモジュール
-│   ├── fileReader.ts   # ファイル読み込みロジック
-│   └── textToSpeech.ts # 音声変換ロジック（ElevenLabs API）
-├── tests/              # テストファイル
-│   ├── bin/
-│   │   └── cli.test.ts # CLI 統合テスト
-│   └── src/
-│       └── fileReader.test.ts # ユニットテスト
+│   ├── index.test.ts   # index テスト（同階層）
+│   ├── textToSpeech.ts # 音声変換ロジック（ElevenLabs API）
+│   └── textToSpeech.test.ts # textToSpeech テスト（同階層）
 ├── dist/               # ビルド成果物
 ├── coverage/           # テストカバレッジレポート
 ├── sample/
@@ -49,6 +47,7 @@ text-to-speech-cli/
 - TypeScript の strict モードを有効化
 - 実装をするときは適度にコメントを残すこと
 - クリーンアーキテクチャを意識して、常に拡張性を考えて実装を行うこと
+- class 記法は使用せず、function 型で実装すること
 
 ### ライブラリ管理
 
@@ -120,6 +119,12 @@ pnpm test:coverage    # カバレッジレポート付きでテスト実行
 - `it`: 日本語で期待される動作を記述
 - 例: `it('ファイルが存在しない場合はエラーをスローする', () => {})`
 
+### テストファイルの配置
+
+- テストファイルは実装ファイルと同じ階層に配置する
+- 命名規則: `[実装ファイル名].test.ts`
+- 例: `src/textToSpeech.ts` → `src/textToSpeech.test.ts`
+
 ### テストカバレッジ
 
 - 目標カバレッジ: 80% 以上
@@ -130,12 +135,12 @@ pnpm test:coverage    # カバレッジレポート付きでテスト実行
 
 - ファイルシステムや外部 API はモック化
 - `jest.mock()` を使用してモジュールをモック
-- 例は `tests/src/fileReader.test.ts` を参照
+- 例は各実装ファイルと同階層のテストファイルを参照
 
 ### 統合テストとユニットテスト
 
-- **ユニットテスト**: `tests/src/` - 個別の関数やクラスをテスト
-- **統合テスト**: `tests/bin/` - CLI 全体の動作をテスト
+- **ユニットテスト**: 実装ファイルと同階層に配置（例: `src/foo.test.ts`）
+- **統合テスト**: 実装ファイルと同階層に配置（例: `bin/cli.test.ts`）
 
 ## 注意事項
 
