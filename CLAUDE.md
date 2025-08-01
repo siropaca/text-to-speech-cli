@@ -33,6 +33,7 @@ text-to-speech-cli/
 
 ## 技術スタック
 - **Node.js**: 18.0.0 以上
+- **パッケージマネージャー**: pnpm
 - **主要依存パッケージ**:
   - `commander`: CLI 引数解析
   - `marked`: Markdown 解析
