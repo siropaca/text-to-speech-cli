@@ -15,9 +15,6 @@ export const createTextToSpeechProvider = (
     case 'amazon':
       // 将来的に Amazon Polly プロバイダーを実装
       throw new Error('Amazon Polly provider is not implemented yet');
-    case 'azure':
-      // 将来的に Azure Speech プロバイダーを実装
-      throw new Error('Azure Speech provider is not implemented yet');
     default:
       // @ts-expect-error - unreachable code
       throw new Error(`Unknown provider: ${options.provider}`);

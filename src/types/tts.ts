@@ -4,7 +4,7 @@ export interface TTSProvider {
 }
 
 // プロバイダータイプの定義
-export type ProviderType = 'elevenlabs' | 'google' | 'amazon' | 'azure';
+export type ProviderType = 'elevenlabs' | 'google' | 'amazon';
 
 // 基本的な TTS オプション
 export interface BaseTTSOptions {
@@ -47,20 +47,8 @@ export interface AmazonPollyOptions extends BaseTTSOptions {
   outputFormat?: 'mp3' | 'ogg_vorbis' | 'pcm';
 }
 
-// 将来の Azure Speech オプション例
-export interface AzureSpeechOptions extends BaseTTSOptions {
-  provider: 'azure';
-  subscriptionKey: string;
-  region: string;
-  voiceName?: string;
-  outputFormat?:
-    | 'audio-16khz-32kbitrate-mono-mp3'
-    | 'audio-24khz-96kbitrate-mono-mp3';
-}
-
 // 全てのプロバイダーオプションの型
 export type TTSOptions =
   | ElevenLabsOptions
   | GoogleTTSOptions
-  | AmazonPollyOptions
-  | AzureSpeechOptions;
+  | AmazonPollyOptions;
