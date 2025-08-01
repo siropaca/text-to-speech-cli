@@ -1,6 +1,16 @@
 import type { BaseTTSOptions } from './common.js';
 
 /**
+ * ElevenLabs オプション
+ */
+export interface ElevenLabsOptions extends BaseTTSOptions {
+  provider: 'elevenlabs';
+  apiKey: string;
+  voiceId?: string;
+  outputFormat?: 'mp3';
+}
+
+/**
  * ElevenLabs のモデル ID の型定義
  * @see https://elevenlabs.io/docs/models
  */
@@ -17,13 +27,3 @@ export type ElevenLabsModelId =
   | 'eleven_english_sts_v2'
   | 'eleven_monolingual_v1'
   | 'eleven_multilingual_v1';
-
-/**
- * ElevenLabs オプション
- */
-export interface ElevenLabsOptions extends BaseTTSOptions {
-  provider: 'elevenlabs';
-  apiKey: string;
-  voiceId?: string;
-  outputFormat?: 'mp3';
-}
