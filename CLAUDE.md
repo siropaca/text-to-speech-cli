@@ -27,13 +27,15 @@ text-to-speech-cli/
 │   └── default.json        # デフォルト設定
 ├── tests/
 ├── docs/
+├── mise.toml              # 開発環境バージョン管理
 ├── package.json
 └── README.md
 ```
 
 ## 技術スタック
-- **Node.js**: 18.0.0 以上
-- **パッケージマネージャー**: pnpm
+- **Node.js**: 20.18.1 (mise 管理)
+- **パッケージマネージャー**: pnpm 9.15.2 (mise 管理)
+- **モジュールシステム**: ESM (ECMAScript Modules)
 - **主要依存パッケージ**:
   - `commander`: CLI 引数解析
   - `marked`: Markdown 解析
@@ -41,9 +43,22 @@ text-to-speech-cli/
   - `fs-extra`: ファイル操作拡張
   - `chalk`: コンソール出力装飾
 
+## 開発環境セットアップ
+
+### 必要なツール
+- mise (開発環境のバージョン管理)
+
+### セットアップ手順
+```bash
+# mise をインストール後
+mise install
+```
+
 ## 開発ガイドライン
 
 ### コーディング規約
+- ESM (ECMAScript Modules) を使用
+- import/export 構文を使用（CommonJS の require は使用しない）
 - ES6+ の機能を積極的に使用
 - 非同期処理は async/await を使用
 - エラーハンドリングは適切に実装
@@ -73,17 +88,17 @@ text-to-speech-cli/
 
 ### テストコマンド
 ```bash
-npm test
+pnpm test
 ```
 
 ### リント
 ```bash
-npm run lint
+pnpm run lint
 ```
 
 ### フォーマット
 ```bash
-npm run format
+pnpm run format
 ```
 
 ## 注意事項

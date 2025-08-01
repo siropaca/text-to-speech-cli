@@ -1,0 +1,17 @@
+{
+  "name": "text-to-speech-cli",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./src/cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@9.15.2",
+  "engines": {
+    "node": ">=20.18.1"
+  }
+}
