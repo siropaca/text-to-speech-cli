@@ -20,6 +20,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["bin/**/*", "src/**/*"],
+  "include": ["bin/**/*", "src/**/*", "*.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

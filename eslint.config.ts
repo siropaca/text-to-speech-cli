@@ -1,11 +1,12 @@
-import js from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import type { ConfigArray } from 'typescript-eslint';
 
-export default [
+const config: ConfigArray = tseslint.config(
   {
     ignores: ['dist/**', 'node_modules/**', '*.config.js', '*.config.ts'],
   },
-  js.configs.recommended,
+  eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
     files: ['**/*.{js,ts,tsx}'],
@@ -24,4 +25,6 @@ export default [
       'no-debugger': 'error',
     },
   },
-]
+);
+
+export default config;

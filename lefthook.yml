@@ -2,13 +2,13 @@ pre-commit:
   parallel: true
   commands:
     lint:
-      glob: "*.{js,ts,json}"
+      glob: '*.{js,ts,json}'
       run: pnpm run lint:fix
     type-check:
-      glob: "*.{ts,tsx}"
+      glob: '*.{ts,tsx}'
       run: pnpm run typecheck
     format-package:
-      glob: "package.json"
+      glob: 'package.json'
       run: pnpm run format:package
 
 commit-msg:
