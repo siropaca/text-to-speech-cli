@@ -67,6 +67,19 @@ describe('CLI Integration Tests', () => {
     expect(output).toContain('テキストファイルのパス');
   });
 
+  it('ヘルプオプションにモデル ID 一覧が表示される', () => {
+    const output = runCLI('--help');
+
+    // モデル ID オプションの説明が含まれている
+    expect(output).toContain('モデル ID (利用可能:');
+
+    // いくつかの主要なモデル ID が含まれている
+    expect(output).toContain('eleven_ttv_v3');
+    expect(output).toContain('eleven_v3');
+    expect(output).toContain('eleven_multilingual_v2');
+    expect(output).toContain('eleven_flash_v2_5');
+  });
+
   it('バージョンオプションを表示する', () => {
     const output = runCLI('--version');
 

@@ -8,7 +8,7 @@
 - 🌐 ElevenLabs API を使用した高品質な音声生成
 - 🌍 多言語対応（ElevenLabs Multilingual モデル使用）
 - 🔧 複数の TTS プロバイダーに対応可能なアーキテクチャ
-- 🎯 音声 ID とモデル ID のカスタマイズ可能
+- 🎯 音声 ID のカスタマイズ可能
 - ⚙️ TypeScript で実装された型安全な CLI ツール
 - 📝 拡張可能な設計（新しいプロバイダーの追加が容易）
 
@@ -63,21 +63,17 @@ text-to-speech-cli README.md
 # 特定の音声IDを使用して変換
 text-to-speech-cli input.txt -v "21m00Tcm4TlvDq8ikWAM"
 
-# 特定のモデルIDを使用して変換
-text-to-speech-cli input.txt -m "eleven_monolingual_v1"
-
 # 開発モードでの実行
 pnpm run dev sample/test.md
 ```
 
 ### コマンドオプション
 
-| オプション   | 短縮形 | 説明                                   | デフォルト値           |
-| ------------ | ------ | -------------------------------------- | ---------------------- |
-| `--voice-id` | `-v`   | 音声 ID（ElevenLabs の音声を指定）     | `JBFqnCBsd6RMkjVDRZzb` |
-| `--model-id` | `-m`   | モデル ID（ElevenLabs のモデルを指定） | `eleven_ttv_v3`        |
-| `--help`     | `-h`   | ヘルプ表示                             | -                      |
-| `--version`  | `-V`   | バージョン表示                         | -                      |
+| オプション   | 短縮形 | 説明                               | デフォルト値           |
+| ------------ | ------ | ---------------------------------- | ---------------------- |
+| `--voice-id` | `-v`   | 音声 ID（ElevenLabs の音声を指定） | `JBFqnCBsd6RMkjVDRZzb` |
+| `--help`     | `-h`   | ヘルプ表示                         | -                      |
+| `--version`  | `-V`   | バージョン表示                     | -                      |
 
 ## 必要条件
 

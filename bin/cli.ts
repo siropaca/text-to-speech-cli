@@ -15,11 +15,10 @@ config();
 
 program
   .name('text-to-speech-cli')
-  .description('テキストファイルを音声ファイルに変換するツール')
+  .description('テキストファイルを音声ファイルに変換するツールです')
   .version('1.0.0')
   .argument('<file>', 'テキストファイルのパス')
   .option('-v, --voice-id <voiceId>', '音声 ID')
-  .option('-m, --model-id <modelId>', 'モデル ID')
   // 未対応
   // .option('-p, --provider <provider>', 'TTS プロバイダー', 'elevenlabs')
   .action(async (file: string, options) => {
@@ -47,7 +46,6 @@ program
         provider: 'elevenlabs',
         apiKey,
         voiceId: options.voiceId,
-        modelId: options.modelId,
       };
 
       // 音声ファイルに変換

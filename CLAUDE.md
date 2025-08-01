@@ -17,10 +17,17 @@ text-to-speech-cli/
 │   ├── cli.ts          # CLI エントリーポイント
 │   └── cli.test.ts     # CLI テスト（同階層）
 ├── src/
+│   ├── constants/      # 定数定義
+│   │   ├── elevenlabs.ts # ElevenLabs 関連の定数
+│   │   └── elevenlabs.test.ts # 定数のテスト
 │   ├── providers/      # TTS プロバイダー実装
 │   │   └── elevenlabs.ts # ElevenLabs プロバイダー
 │   ├── types/          # TypeScript 型定義
-│   │   └── tts.ts      # TTS 関連の型定義
+│   │   ├── common.ts   # 共通の型定義
+│   │   ├── elevenlabs.ts # ElevenLabs 関連の型定義
+│   │   ├── google.ts   # Google TTS 関連の型定義
+│   │   ├── amazon.ts   # Amazon Polly 関連の型定義
+│   │   └── index.ts    # 型定義の統合エクスポート
 │   ├── utils/          # ユーティリティ関数
 │   │   ├── file.ts     # ファイル操作ユーティリティ
 │   │   └── file.test.ts # ファイルユーティリティのテスト
@@ -85,6 +92,19 @@ text-to-speech-cli/
 - 関数には必ず JSDoc を記載すること（パラメータ、戻り値、関数の説明を含む）
 - JSDoc の説明はできるだけ簡潔に記載すること
 
+### ファイル配置とアーキテクチャルール
+
+- **型定義は `types` ディレクトリに配置**:
+  - TypeScript の型定義（`type`, `interface`）は必ず `src/types/` 配下に配置
+- **定数は `constants` ディレクトリに配置**:
+  - 実際の値を持つ定数配列やオブジェクトは `src/constants/` 配下に配置
+  - 型定義を先に定義してから、その型に基づいて定数を作成する
+  - 例: `types/elevenlabs.ts` で型定義 → `constants/elevenlabs.ts` で配列定義
+- **責任分離の原則**:
+  - `types`: 型定義のみ（実際の値は持たない）
+  - `constants`: 定数値のみ（型は `types` から import）
+  - これにより循環依存を回避し、保守性と型安全性を向上させる
+
 ### ライブラリ管理
 
 - **新規ライブラリのインストール時**:
@@ -144,6 +164,7 @@ pnpm run ncu              # 依存関係の更新チェック
 ### ElevenLabs API
 
 - ドキュメント: @./docs/elevenlabs.md を参照（ここには詳細を描かない）
+- モデル ID は内部で定数として管理（CLI では指定不可）
 
 ### プロバイダーアーキテクチャ
 

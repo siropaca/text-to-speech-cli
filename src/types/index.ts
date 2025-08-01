@@ -4,6 +4,9 @@ export type { TTSProvider, ProviderType, BaseTTSOptions } from './common.js';
 // ElevenLabs 関連の型
 export type { ElevenLabsOptions, ElevenLabsModelId } from './elevenlabs.js';
 
+// ElevenLabs 関連の定数
+export { ELEVENLABS_MODEL_IDS } from '../constants/elevenlabs.js';
+
 // Google TTS 関連の型
 export type { GoogleTTSOptions } from './google.js';
 

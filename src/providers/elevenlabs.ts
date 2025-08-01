@@ -6,6 +6,11 @@ import type {
   ElevenLabsOptions,
   ElevenLabsModelId,
 } from '../types/index.js';
+import {
+  DEFAULT_VOICE_ID,
+  DEFAULT_MODEL_ID,
+  DEFAULT_OUTPUT_FORMAT,
+} from '../constants/elevenlabs.js';
 
 /**
  * ElevenLabs API を使用する TTS プロバイダーを作成する
@@ -20,9 +25,9 @@ export const createElevenLabsProvider = (
   });
 
   // デフォルト値
-  const voiceId = options.voiceId || 'JBFqnCBsd6RMkjVDRZzb';
-  const modelId: ElevenLabsModelId = options.modelId || 'eleven_ttv_v3';
-  const outputFormat = 'mp3_44100_128' as const;
+  const voiceId = options.voiceId || DEFAULT_VOICE_ID;
+  const modelId: ElevenLabsModelId = DEFAULT_MODEL_ID;
+  const outputFormat = DEFAULT_OUTPUT_FORMAT;
 
   return {
     async convertTextToSpeech(text: string, outputPath: string): Promise<void> {
