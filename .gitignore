@@ -1,0 +1,5 @@
+# IntelliJ IDEA
+.idea/*
+
+# Claude settings
+.claude/settings.local.json
