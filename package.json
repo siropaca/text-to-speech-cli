@@ -6,7 +6,6 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "./src/cli.js",
   "bin": {
     "text-to-speech-cli": "./dist/bin/cli.js"
   },

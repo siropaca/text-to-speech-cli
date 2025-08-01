@@ -5,6 +5,8 @@
 テキストファイルを音声ファイル（MP3）に変換するコマンドラインツール。
 ElevenLabs API などを使用して音声を生成します。
 
+将来的に npm パッケージとして CLI ツールを公開予定です。
+
 ## アーキテクチャ
 
 ### 現在の構造
@@ -15,8 +17,6 @@ text-to-speech-cli/
 │   ├── cli.ts          # CLI エントリーポイント
 │   └── cli.test.ts     # CLI テスト（同階層）
 ├── src/
-│   ├── index.ts        # メインモジュール
-│   ├── index.test.ts   # index テスト（同階層）
 │   ├── textToSpeech.ts # 音声変換ロジック（ElevenLabs API）
 │   └── textToSpeech.test.ts # textToSpeech テスト（同階層）
 ├── dist/               # ビルド成果物
