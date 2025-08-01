@@ -85,6 +85,7 @@ pnpm install
 - 非同期処理は async/await を使用
 - エラーハンドリングは適切に実装
 - TypeScript の strict モードを有効化
+- 実装をするときは適度にコメントを残すこと
 
 ### ライブラリ管理
 
