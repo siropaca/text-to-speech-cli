@@ -8,7 +8,7 @@ import {
   convertFileToSpeech,
   generateOutputPath,
 } from '../src/textToSpeech.js';
-import type { ElevenLabsOptions } from '../src/types/tts.js';
+import type { ElevenLabsOptions } from '../src/types/index.js';
 
 // .env ファイルを読み込む
 config();

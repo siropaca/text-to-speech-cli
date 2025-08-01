@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import type { TTSProvider, TTSOptions } from './types/tts.js';
+import type { TTSProvider, TTSOptions } from './types/index.js';
 import { createElevenLabsProvider } from './providers/elevenlabs.js';
 
 /**

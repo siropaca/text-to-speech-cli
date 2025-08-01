@@ -5,7 +5,7 @@ import type {
   TTSProvider,
   ElevenLabsOptions,
   ElevenLabsModelId,
-} from '../types/tts.js';
+} from '../types/index.js';
 
 /**
  * ElevenLabs API を使用する TTS プロバイダーを作成する
