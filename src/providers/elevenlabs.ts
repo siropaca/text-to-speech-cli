@@ -7,7 +7,11 @@ import type {
   ElevenLabsModelId,
 } from '../types/tts.js';
 
-// ElevenLabs プロバイダーの実装
+/**
+ * ElevenLabs API を使用する TTS プロバイダーを作成する
+ * @param options - ElevenLabs API の設定オプション
+ * @returns ElevenLabs TTS プロバイダーインスタンス
+ */
 export const createElevenLabsProvider = (
   options: ElevenLabsOptions
 ): TTSProvider => {

@@ -2,7 +2,11 @@ import { readFile } from 'node:fs/promises';
 import type { TTSProvider, TTSOptions } from './types/tts.js';
 import { createElevenLabsProvider } from './providers/elevenlabs.js';
 
-// プロバイダーを作成するファクトリー関数
+/**
+ * 指定されたオプションに基づいて TTS プロバイダーを作成する
+ * @param options - TTS プロバイダーの設定オプション
+ * @returns 作成された TTS プロバイダーインスタンス
+ */
 export const createTextToSpeechProvider = (
   options: TTSOptions
 ): TTSProvider => {
@@ -21,7 +25,12 @@ export const createTextToSpeechProvider = (
   }
 };
 
-// テキストを音声に変換する関数
+/**
+ * テキストを音声ファイルに変換する
+ * @param text - 変換するテキスト
+ * @param outputPath - 出力ファイルのパス
+ * @param options - TTS プロバイダーの設定オプション
+ */
 export const convertTextToSpeech = async (
   text: string,
   outputPath: string,
@@ -31,7 +40,12 @@ export const convertTextToSpeech = async (
   await provider.convertTextToSpeech(text, outputPath);
 };
 
-// ファイルを音声に変換する関数
+/**
+ * テキストファイルを音声ファイルに変換する
+ * @param inputFilePath - 入力テキストファイルのパス
+ * @param outputFilePath - 出力音声ファイルのパス
+ * @param options - TTS プロバイダーの設定オプション
+ */
 export const convertFileToSpeech = async (
   inputFilePath: string,
   outputFilePath: string,

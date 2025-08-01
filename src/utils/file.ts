@@ -1,6 +1,11 @@
 import { dirname, join } from 'node:path';
 
-// 出力ファイルパスを生成するユーティリティ関数
+/**
+ * 入力ファイルパスから出力ファイルパスを生成する
+ * @param inputFilePath - 入力ファイルのパス
+ * @param extension - 出力ファイルの拡張子（デフォルト: 'mp3'）
+ * @returns 生成された出力ファイルパス
+ */
 export const generateOutputPath = (
   inputFilePath: string,
   extension: string = 'mp3'
