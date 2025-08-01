@@ -7,3 +7,7 @@
 # Node.js
 node_modules/
 pnpm-debug.log*
+
+# TypeScript
+dist/
+*.tsbuildinfo

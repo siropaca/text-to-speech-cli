@@ -5,12 +5,17 @@
   "type": "module",
   "main": "./src/cli.js",
   "bin": {
-    "text-to-speech-cli": "./bin/cli.js"
+    "text-to-speech-cli": "./dist/bin/cli.js"
   },
   "scripts": {
+    "dev": "tsx bin/cli.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prebuild": "pnpm run clean",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +29,10 @@
     "fs-extra": "11.2.0"
   },
   "devDependencies": {
+    "@types/node": "24.1.0",
+    "eslint": "9.0.0",
     "prettier": "3.4.0",
-    "eslint": "9.0.0"
+    "tsx": "4.20.3",
+    "typescript": "5.9.2"
   }
 }
