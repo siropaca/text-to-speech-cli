@@ -17,7 +17,7 @@ export const ELEVENLABS_MODEL_IDS: ReadonlyArray<ElevenLabsModelId> = [
   'eleven_english_sts_v2',
   'eleven_monolingual_v1',
   'eleven_multilingual_v1',
-];
+] as const;
 
 /**
  * デフォルト音声 ID
@@ -27,7 +27,7 @@ export const DEFAULT_VOICE_ID = 'JBFqnCBsd6RMkjVDRZzb' as const;
 /**
  * デフォルトモデル ID
  */
-export const DEFAULT_MODEL_ID: ElevenLabsModelId = 'eleven_ttv_v3';
+export const DEFAULT_MODEL_ID: ElevenLabsModelId = 'eleven_ttv_v3' as const;
 
 /**
  * デフォルト出力フォーマット
