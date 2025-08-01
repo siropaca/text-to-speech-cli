@@ -76,7 +76,7 @@ pnpm run dev sample/test.md
 | ------------ | ------ | -------------------------------------- | ------------------------ |
 | `--provider` | `-p`   | TTS プロバイダー                       | `elevenlabs`             |
 | `--voice-id` | `-v`   | 音声 ID（ElevenLabs の音声を指定）     | `JBFqnCBsd6RMkjVDRZzb`   |
-| `--model-id` | `-m`   | モデル ID（ElevenLabs のモデルを指定） | `eleven_multilingual_v2` |
+| `--model-id` | `-m`   | モデル ID（ElevenLabs のモデルを指定） | `eleven_ttv_v3` |
 | `--help`     | `-h`   | ヘルプ表示                             | -                        |
 | `--version`  | `-V`   | バージョン表示                         | -                        |
 

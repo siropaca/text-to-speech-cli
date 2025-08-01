@@ -13,7 +13,7 @@ export const createElevenLabsProvider = (
 
   // デフォルト値
   const voiceId = options.voiceId || 'JBFqnCBsd6RMkjVDRZzb';
-  const modelId = options.modelId || 'eleven_multilingual_v2';
+  const modelId = options.modelId || 'eleven_ttv_v3';
   const outputFormat = 'mp3_44100_128' as const;
 
   return {

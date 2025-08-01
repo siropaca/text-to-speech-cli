@@ -8,7 +8,7 @@
 ## デフォルト設定
 
 - デフォルト音声ID: `JBFqnCBsd6RMkjVDRZzb` (George)
-- デフォルトモデルID: `eleven_multilingual_v2`
+- デフォルトモデルID: `eleven_ttv_v3`
 - 出力フォーマット: `mp3_44100_128`
 
 ## 制限事項
