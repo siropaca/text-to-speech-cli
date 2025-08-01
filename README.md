@@ -1,10 +1,12 @@
 # text-to-speech-cli
 
-テキストファイル（Markdown 等）を読み込んで標準出力に表示するコマンドラインツール
+テキストファイルを音声ファイル（MP3）に変換するコマンドラインツール。ElevenLabs API を使用して高品質な音声を生成します。
 
 ## 機能
 
-- 📝 テキストファイルの内容を標準出力に表示
+- 🎙️ テキストファイルを音声ファイル（MP3）に変換
+- 🌐 ElevenLabs API を使用した高品質な音声生成
+- 🌍 多言語対応（ElevenLabs Multilingual モデル使用）
 - ⚙️ TypeScript で実装された CLI ツール
 - 🎯 シンプルで直感的な CLI インターフェース
 
@@ -36,11 +38,25 @@ node dist/bin/cli.js <file>
 
 ## 使い方
 
+### 事前準備
+
+1. ElevenLabs のアカウントを作成し、API キーを取得
+2. `.env` ファイルを作成し、API キーを設定：
+
+```bash
+ELEVENLABS_API_KEY=your-api-key-here
+```
+
 ### 基本的な使用方法
 
 ```bash
-# ファイルの内容を表示
-text-to-speech-cli input.md
+# テキストファイルを音声ファイルに変換
+text-to-speech-cli input.txt
+# → input.mp3 が生成されます
+
+# Markdown ファイルを変換
+text-to-speech-cli README.md
+# → README.mp3 が生成されます
 
 # 開発モードでの実行
 pnpm run dev sample/test.md
@@ -57,6 +73,7 @@ pnpm run dev sample/test.md
 
 - Node.js 20.18.1 以上
 - pnpm 9.15.2
+- ElevenLabs API キー（[ElevenLabs](https://elevenlabs.io/) で取得）
 
 ## 開発
 
@@ -74,7 +91,7 @@ pnpm install
 
 ```bash
 # 開発モードで実行
-pnpm run dev
+pnpm run dev <file>
 
 # TypeScript のビルド
 pnpm run build
@@ -84,28 +101,51 @@ pnpm run clean
 
 # リント
 pnpm run lint
+pnpm run lint:fix    # 自動修正付き
 
 # フォーマット
 pnpm run format
+pnpm run format:package  # package.json のソート
 
 # 型チェック
 pnpm run typecheck
+
+# テスト
+pnpm test
+pnpm test:watch      # ウォッチモード
+pnpm test:coverage   # カバレッジレポート付き
+
+# 依存関係の更新チェック
+pnpm run ncu
 ```
 
 ### プロジェクト構造
 
 ```
 text-to-speech-cli/
-├── bin/           # CLI エントリーポイント
-│   └── cli.ts     # メインの CLI スクリプト
-├── dist/          # ビルド成果物（gitignore）
-├── src/           # ソースコード
-│   └── index.ts   # メインモジュール（現在は空）
-├── sample/        # サンプルファイル
-│   └── test.md    # テスト用 Markdown ファイル
-├── tsconfig.json  # TypeScript 設定
-├── package.json   # プロジェクト設定
-└── mise.toml      # 開発環境バージョン管理
+├── bin/              # CLI エントリーポイント
+│   └── cli.ts        # メインの CLI スクリプト
+├── dist/             # ビルド成果物（gitignore）
+├── src/              # ソースコード
+│   ├── index.ts      # メインエントリーポイント
+│   ├── fileReader.ts # ファイル読み込みロジック
+│   └── textToSpeech.ts # 音声変換ロジック
+├── tests/            # テストファイル
+│   ├── bin/
+│   │   └── cli.test.ts
+│   └── src/
+│       └── fileReader.test.ts
+├── sample/           # サンプルファイル
+│   ├── test.md       # テスト用 Markdown ファイル
+│   └── test.mp3      # 生成されたサンプル音声
+├── .env.example      # 環境変数のサンプル
+├── tsconfig.json     # TypeScript 設定
+├── jest.config.js    # Jest 設定
+├── eslint.config.ts  # ESLint 設定
+├── package.json      # プロジェクト設定
+├── lefthook.yml      # Git フック設定
+├── commitlint.config.ts # コミットメッセージ規約
+└── mise.toml         # 開発環境バージョン管理
 ```
 
 ## 技術スタック
@@ -115,17 +155,47 @@ text-to-speech-cli/
 - **パッケージマネージャー**: pnpm 9.15.2 (mise 管理)
 - **モジュールシステム**: ESM (ECMAScript Modules)
 - **主要依存パッケージ**:
+  - `@elevenlabs/elevenlabs-js` (2.7.0): ElevenLabs API クライアント
   - `commander` (12.0.0): CLI 引数解析
+  - `dotenv` (16.4.7): 環境変数管理
   - `fs-extra` (11.2.0): ファイル操作拡張
 - **開発ツール**:
   - `tsx` (4.20.3): TypeScript 実行環境
-  - `eslint` (9.0.0): リンター
+  - `eslint` (9.32.0): リンター
   - `prettier` (3.4.0): コードフォーマッター
+  - `jest` (30.0.5): テストフレームワーク
+  - `ts-jest` (29.4.0): Jest の TypeScript サポート
+  - `@commitlint/cli` (19.8.1): コミットメッセージ規約
+  - `lefthook` (1.11.13): Git フック管理
 
 ## ライセンス
 
 ISC License
 
+## 環境変数
+
+| 変数名 | 説明 | 必須 |
+| ------ | ---- | ---- |
+| `ELEVENLABS_API_KEY` | ElevenLabs API キー | ✓ |
+
+## トラブルシューティング
+
+### API キーが設定されていないエラー
+
+`.env` ファイルが存在し、`ELEVENLABS_API_KEY` が正しく設定されているか確認してください。
+
+### 音声生成に失敗する
+
+- API キーが有効であることを確認
+- インターネット接続を確認
+- ElevenLabs のクォータ制限に達していないか確認
+
 ## 貢献
 
 プルリクエストを歓迎します！大きな変更を加える場合は、まず issue を開いて変更内容を説明してください。
+
+### 開発ルール
+
+- コミットメッセージは Conventional Commits 形式に従う
+- プッシュ前に自動的にリントとフォーマットが実行される（lefthook）
+- テスト駆動開発（TDD）を推奨

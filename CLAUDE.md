@@ -2,17 +2,20 @@
 
 ## プロジェクト概要
 
-テキストファイル（Markdown 等）を読み込んで標準出力に表示するコマンドラインツール。将来的にはテキストからスピーチ API を使用して音声ファイルに変換する機能を実装予定。
+テキストファイルを音声ファイル（MP3）に変換するコマンドラインツール。ElevenLabs API を使用して高品質な音声を生成します。
 
 ## 現在の実装状況
 
-- ✅ ファイル読み込みと標準出力表示
+- ✅ ファイル読み込み機能
 - ✅ CLI インターフェース (commander 使用)
 - ✅ TypeScript による実装
 - ✅ テスト駆動開発環境 (Jest + ts-jest)
-- ⏳ 音声変換機能（未実装）
+- ✅ ElevenLabs API を使用した音声変換機能
+- ✅ 環境変数による API キー管理 (dotenv)
+- ✅ ESLint + Prettier によるコード品質管理
+- ✅ Git フック (lefthook) + commitlint
 - ⏳ Markdown 解析（未実装）
-- ⏳ 音声プロバイダー統合（未実装）
+- ⏳ 複数の音声プロバイダー対応（未実装）
 
 ## アーキテクチャ
 
@@ -22,8 +25,9 @@
 text-to-speech-cli/
 ├── bin/cli.ts          # CLI エントリーポイント
 ├── src/
-│   ├── index.ts        # メインモジュール（現在は空）
-│   └── fileReader.ts   # ファイル読み込みロジック
+│   ├── index.ts        # メインモジュール
+│   ├── fileReader.ts   # ファイル読み込みロジック
+│   └── textToSpeech.ts # 音声変換ロジック（ElevenLabs API）
 ├── tests/              # テストファイル
 │   ├── bin/
 │   │   └── cli.test.ts # CLI 統合テスト
@@ -31,7 +35,14 @@ text-to-speech-cli/
 │       └── fileReader.test.ts # ユニットテスト
 ├── dist/               # ビルド成果物
 ├── coverage/           # テストカバレッジレポート
-└── sample/test.md      # テストファイル
+├── sample/
+│   ├── test.md         # テスト用 Markdown
+│   └── test.mp3        # 生成されたサンプル音声
+├── .env.example        # 環境変数サンプル
+├── jest.config.js      # Jest 設定
+├── eslint.config.ts    # ESLint 設定
+├── lefthook.yml        # Git フック設定
+└── commitlint.config.ts # コミットメッセージ規約
 ```
 
 ### 計画中の構造
@@ -47,13 +58,17 @@ text-to-speech-cli/
 - **パッケージマネージャー**: pnpm 9.15.2 (mise 管理)
 - **モジュールシステム**: ESM (ECMAScript Modules)
 - **依存パッケージ**:
+  - `@elevenlabs/elevenlabs-js` (2.7.0): ElevenLabs API クライアント
   - `commander` (12.0.0): CLI 引数解析
+  - `dotenv` (16.4.7): 環境変数管理
   - `fs-extra` (11.2.0): ファイル操作拡張
 - **開発ツール**:
   - `tsx` (4.20.3): TypeScript 実行環境
-  - `eslint` (9.0.0): リンター
+  - `eslint` (9.32.0): リンター
   - `prettier` (3.4.0): コードフォーマッター
   - `@types/node` (24.1.0): Node.js 型定義
+  - `@commitlint/cli` (19.8.1): コミットメッセージ規約
+  - `lefthook` (1.11.13): Git フック管理
 - **テストツール**:
   - `jest` (30.0.5): テストフレームワーク
   - `ts-jest` (29.4.0): Jest の TypeScript サポート
@@ -64,6 +79,7 @@ text-to-speech-cli/
 ### 必要なツール
 
 - mise (開発環境のバージョン管理)
+- ElevenLabs API キー
 
 ### セットアップ手順
 
@@ -73,6 +89,10 @@ mise install
 
 # 依存関係のインストール
 pnpm install
+
+# 環境変数の設定
+cp .env.example .env
+# .env ファイルを編集して ELEVENLABS_API_KEY を設定
 ```
 
 ## 開発ガイドライン
@@ -113,7 +133,7 @@ pnpm install
 ### 開発
 
 ```bash
-pnpm run dev          # tsx を使用して開発モードで実行
+pnpm run dev <file>   # tsx を使用して開発モードで実行
 ```
 
 ### ビルド
@@ -127,7 +147,9 @@ pnpm run clean        # ビルド成果物を削除
 
 ```bash
 pnpm run lint         # ESLint でコードチェック
+pnpm run lint:fix     # ESLint で自動修正
 pnpm run format       # Prettier でコードフォーマット
+pnpm run format:package # package.json をソート
 pnpm run typecheck    # TypeScript の型チェック
 ```
 
@@ -139,13 +161,20 @@ pnpm test:watch       # ウォッチモードでテスト実行
 pnpm test:coverage    # カバレッジレポート付きでテスト実行
 ```
 
+### その他
+
+```bash
+pnpm run ncu          # 依存関係の更新チェック
+```
+
 ## 今後の実装予定
 
 ### 音声プロバイダー実装
 
-将来的に実装予定のプロバイダー：
+現在実装済み：
+- ✅ ElevenLabs (実装済み)
 
-- ElevenLabs
+将来的に実装予定のプロバイダー：
 - Google Text-to-Speech
 - Amazon Polly
 - Azure Speech Services
@@ -159,21 +188,22 @@ pnpm test:coverage    # カバレッジレポート付きでテスト実行
 - コードブロック、インラインコード、HTML タグ、Markdown シンタックスは除外
 - 見出し、段落、リスト、引用文のテキスト部分のみを抽出
 
-### API 情報（実装予定）
+### API 情報
 
-#### ElevenLabs API
+#### ElevenLabs API（実装済み）
 
-- **ベース URL**: `https://api.elevenlabs.io`
-- **認証**: ヘッダーに `xi-api-key`
-- **主要エンドポイント**:
-  - Text-to-Speech: `POST /v1/text-to-speech/{voice_id}`
-  - 音声一覧: `GET /v1/voices`
-  - モデル一覧: `GET /v1/models`
+- **SDK**: `@elevenlabs/elevenlabs-js` を使用
+- **認証**: 環境変数 `ELEVENLABS_API_KEY` で設定
+- **使用しているデフォルト設定**:
+  - Voice ID: `JBFqnCBsd6RMkjVDRZzb` (George)
+  - Model: `eleven_multilingual_v2`
+  - Output Format: `mp3_44100_128`
 
 #### 制限事項
 
 - テキスト長: 最大 5000 文字/リクエスト
-- 長いテキストはチャンク化して処理予定
+- 長いテキストの分割処理は未実装
+- 無料プランではクォータ制限あり
 
 ## テスト駆動開発（TDD）
 
@@ -230,9 +260,10 @@ pnpm test:watch
 
 ## 注意事項
 
-- 現在は単純なファイル読み込みツールとして動作
-- 音声変換機能は未実装
-- API キーは環境変数で管理する予定
-- エラーハンドリングでは API キー無効、クォータ超過等を考慮予定
-- 音声ファイルの保存時はストリーム処理を推奨予定
+- ElevenLabs API を使用した音声変換機能実装済み
+- API キーは環境変数（.env ファイル）で管理
+- エラーハンドリング実装済み（API キー無効、ネットワークエラー等）
+- 音声ファイルの保存はストリーム処理で実装
 - 新機能実装時は必ず TDD で開発すること
+- Git フックにより、コミット時に自動で lint とフォーマットが実行される
+- コミットメッセージは Conventional Commits 形式に従う必要がある
