@@ -5,8 +5,8 @@ import type { ElevenLabsModelId } from '../types/elevenlabs.js';
  * @see https://elevenlabs.io/docs/models
  */
 export const ELEVENLABS_MODEL_IDS: ReadonlyArray<ElevenLabsModelId> = [
-  'eleven_v3',
-  'eleven_ttv_v3',
+  // 'eleven_v3',
+  // 'eleven_ttv_v3',
   'eleven_multilingual_v2',
   'eleven_flash_v2_5',
   'eleven_flash_v2',
@@ -27,7 +27,8 @@ export const DEFAULT_VOICE_ID = '4lOQ7A2l7HPuG7UIHiKA' as const;
 /**
  * デフォルトモデル ID
  */
-export const DEFAULT_MODEL_ID: ElevenLabsModelId = 'eleven_ttv_v3' as const;
+export const DEFAULT_MODEL_ID: ElevenLabsModelId =
+  'eleven_multilingual_v2' as const;
 
 /**
  * デフォルト出力フォーマット

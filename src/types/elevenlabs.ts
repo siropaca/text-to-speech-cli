@@ -16,8 +16,8 @@ export interface ElevenLabsOptions extends BaseTTSOptions {
  * @see https://elevenlabs.io/docs/models
  */
 export type ElevenLabsModelId =
-  | 'eleven_v3'
-  | 'eleven_ttv_v3'
+  // | 'eleven_v3'
+  // | 'eleven_ttv_v3'
   | 'eleven_multilingual_v2'
   | 'eleven_flash_v2_5'
   | 'eleven_flash_v2'
