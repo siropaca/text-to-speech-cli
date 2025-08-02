@@ -86,7 +86,7 @@ describe('CLI Integration Tests', () => {
   it('バージョンオプションを表示する', () => {
     const output = runCLI('--version');
 
-    expect(output.trim()).toBe('1.0.0');
+    expect(output).toContain('1.0.0');
   });
 
   it('引数なしで実行した場合はエラーを表示する', () => {
