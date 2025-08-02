@@ -33,3 +33,8 @@ export const DEFAULT_MODEL_ID: ElevenLabsModelId = 'eleven_ttv_v3' as const;
  * デフォルト出力フォーマット
  */
 export const DEFAULT_OUTPUT_FORMAT = 'mp3_44100_128' as const;
+
+/**
+ * デフォルト読み上げスピード
+ */
+export const DEFAULT_SPEED = 1.0 as const;

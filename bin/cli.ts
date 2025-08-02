@@ -19,6 +19,7 @@ program
   .version('1.0.0')
   .argument('<file>', 'テキストファイルのパス')
   .option('-v, --voice-id <voiceId>', '音声 ID')
+  .option('-s, --speed <speed>', '読み上げスピード (0.7-1.2)', parseFloat)
   // 未対応
   // .option('-p, --provider <provider>', 'TTS プロバイダー', 'elevenlabs')
   .action(async (file: string, options) => {
@@ -41,11 +42,22 @@ program
 
       console.log(`変換中: ${filePath} → ${outputPath}`);
 
+      // スピードの検証
+      if (options.speed !== undefined) {
+        if (options.speed < 0.7 || options.speed > 1.2) {
+          console.error(
+            '❌ エラー: スピードは 0.7 から 1.2 の範囲で指定してください。'
+          );
+          process.exit(1);
+        }
+      }
+
       // TTS オプションを作成
       const ttsOptions: ElevenLabsOptions = {
         provider: 'elevenlabs',
         apiKey,
         voiceId: options.voiceId,
+        speed: options.speed,
       };
 
       // 音声ファイルに変換

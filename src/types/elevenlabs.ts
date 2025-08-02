@@ -8,6 +8,7 @@ export interface ElevenLabsOptions extends BaseTTSOptions {
   apiKey: string;
   voiceId?: string;
   outputFormat?: 'mp3';
+  speed?: number;
 }
 
 /**

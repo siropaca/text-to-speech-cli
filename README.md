@@ -9,6 +9,7 @@
 - 🌍 多言語対応（ElevenLabs Multilingual モデル使用）
 - 🔧 複数の TTS プロバイダーに対応可能なアーキテクチャ
 - 🎯 音声 ID のカスタマイズ可能
+- 🏃 読み上げスピードの調整可能（0.7〜1.2倍速）
 - ⚙️ TypeScript で実装された型安全な CLI ツール
 - 📝 拡張可能な設計（新しいプロバイダーの追加が容易）
 
@@ -63,6 +64,10 @@ text-to-speech-cli README.md
 # 特定の音声IDを使用して変換
 text-to-speech-cli input.txt -v "21m00Tcm4TlvDq8ikWAM"
 
+# 読み上げスピードを調整して変換
+text-to-speech-cli input.txt -s 0.8  # ゆっくり読み上げ
+text-to-speech-cli input.txt -s 1.2  # 速く読み上げ
+
 # 開発モードでの実行
 pnpm run dev sample/test.md
 ```
@@ -71,7 +76,8 @@ pnpm run dev sample/test.md
 
 | オプション   | 短縮形 | 説明                               | デフォルト値           |
 | ------------ | ------ | ---------------------------------- | ---------------------- |
-| `--voice-id` | `-v`   | 音声 ID（ElevenLabs の音声を指定） | `JBFqnCBsd6RMkjVDRZzb` |
+| `--voice-id` | `-v`   | 音声 ID（ElevenLabs の音声を指定） | `4lOQ7A2l7HPuG7UIHiKA` |
+| `--speed`    | `-s`   | 読み上げスピード（0.7〜1.2）       | `1.0`                  |
 | `--help`     | `-h`   | ヘルプ表示                         | -                      |
 | `--version`  | `-V`   | バージョン表示                     | -                      |
 

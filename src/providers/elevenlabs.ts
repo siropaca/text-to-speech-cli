@@ -10,6 +10,7 @@ import {
   DEFAULT_VOICE_ID,
   // DEFAULT_MODEL_ID,
   DEFAULT_OUTPUT_FORMAT,
+  DEFAULT_SPEED,
 } from '../constants/elevenlabs.js';
 
 /**
@@ -28,6 +29,7 @@ export const createElevenLabsProvider = (
   const voiceId = options.voiceId || DEFAULT_VOICE_ID;
   // const modelId: ElevenLabsModelId = DEFAULT_MODEL_ID;
   const outputFormat = DEFAULT_OUTPUT_FORMAT;
+  const speed = options.speed ?? DEFAULT_SPEED;
 
   return {
     async convertTextToSpeech(text: string, outputPath: string): Promise<void> {
@@ -36,6 +38,9 @@ export const createElevenLabsProvider = (
           text,
           // modelId,
           outputFormat,
+          voiceSettings: {
+            speed,
+          },
         });
 
         const writeStream = createWriteStream(outputPath);
