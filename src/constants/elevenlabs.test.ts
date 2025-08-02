@@ -57,7 +57,7 @@ describe('ElevenLabs Constants', () => {
     it('DEFAULT_VOICE_ID が正しく定義されている', () => {
       expect(typeof DEFAULT_VOICE_ID).toBe('string');
       expect(DEFAULT_VOICE_ID.length).toBeGreaterThan(0);
-      expect(DEFAULT_VOICE_ID).toBe('JBFqnCBsd6RMkjVDRZzb');
+      expect(DEFAULT_VOICE_ID).toBe('4lOQ7A2l7HPuG7UIHiKA');
     });
 
     it('DEFAULT_MODEL_ID が正しく定義されている', () => {

@@ -8,7 +8,9 @@ import {
   convertFileToSpeech,
   generateOutputPath,
 } from '../src/textToSpeech.js';
-import type { ElevenLabsOptions } from '../src/types/index.js';
+import { logger } from '../src/utils/logger.js';
+import { createTTSOptions } from '../src/utils/options.js';
+import type { CliOptions } from '../src/utils/options.js';
 
 // .env ファイルを読み込む
 config();
@@ -22,50 +24,24 @@ program
   .option('-s, --speed <speed>', '読み上げスピード (0.7-1.2)', parseFloat)
   // 未対応
   // .option('-p, --provider <provider>', 'TTS プロバイダー', 'elevenlabs')
-  .action(async (file: string, options) => {
+  .action(async (file: string, options: CliOptions) => {
     try {
       const filePath = resolve(process.cwd(), file);
-
-      // API キーを環境変数から取得
-      const apiKey = process.env.ELEVENLABS_API_KEY;
-
-      if (!apiKey) {
-        console.error(
-          '❌ エラー: ELEVENLABS_API_KEY 環境変数が設定されていません。\n' +
-            '   .env ファイルを作成するか、環境変数を設定してください。'
-        );
-        process.exit(1);
-      }
 
       // 出力ファイルパスを生成
       const outputPath = generateOutputPath(filePath);
 
-      console.log(`変換中: ${filePath} → ${outputPath}`);
-
-      // スピードの検証
-      if (options.speed !== undefined) {
-        if (options.speed < 0.7 || options.speed > 1.2) {
-          console.error(
-            '❌ エラー: スピードは 0.7 から 1.2 の範囲で指定してください。'
-          );
-          process.exit(1);
-        }
-      }
+      logger.info(`変換中: ${filePath} → ${outputPath}`);
 
       // TTS オプションを作成
-      const ttsOptions: ElevenLabsOptions = {
-        provider: 'elevenlabs',
-        apiKey,
-        voiceId: options.voiceId,
-        speed: options.speed,
-      };
+      const ttsOptions = createTTSOptions(options);
 
       // 音声ファイルに変換
       await convertFileToSpeech(filePath, outputPath, ttsOptions);
 
-      console.log(`✨ 音声ファイルが作成されました: ${outputPath}`);
+      logger.success(`音声ファイルが作成されました: ${outputPath}`);
     } catch (error) {
-      console.error(`エラー: ${(error as Error).message}`);
+      logger.error(`エラー: ${(error as Error).message}`);
       process.exit(1);
     }
   });
